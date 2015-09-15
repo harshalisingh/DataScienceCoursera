@@ -1,0 +1,69 @@
+
+R version 3.2.2 (2015-08-14) -- "Fire Safety"
+Copyright (C) 2015 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FDATA.gov_NGAP.xlsx"
+> download.file(fileUrl, destfile="data.xlsx", mode="wb")
+trying URL 'https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FDATA.gov_NGAP.xlsx'
+Content type 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' length 16197 bytes (15 KB)
+downloaded 15 KB
+
+> dateDownloaded <- date()
+> library(xslx)
+Error in library(xslx) : there is no package called ‘xslx’
+> library(xlsx)
+Error in library(xlsx) : there is no package called ‘xlsx’
+> library(xlsx)
+Error in library(xlsx) : there is no package called ‘xlsx’
+> install.packages("xlsx")
+Installing package into ‘C:/Users/Harshali/Documents/R/win-library/3.2’
+(as ‘lib’ is unspecified)
+--- Please select a CRAN mirror for use in this session ---
+also installing the dependencies ‘rJava’, ‘xlsxjars’
+
+trying URL 'https://cran.mtu.edu/bin/windows/contrib/3.2/rJava_0.9-7.zip'
+Content type 'application/zip' length 766842 bytes (748 KB)
+downloaded 748 KB
+
+trying URL 'https://cran.mtu.edu/bin/windows/contrib/3.2/xlsxjars_0.6.1.zip'
+Content type 'application/zip' length 9485167 bytes (9.0 MB)
+downloaded 9.0 MB
+
+trying URL 'https://cran.mtu.edu/bin/windows/contrib/3.2/xlsx_0.5.7.zip'
+Content type 'application/zip' length 401142 bytes (391 KB)
+downloaded 391 KB
+
+package ‘rJava’ successfully unpacked and MD5 sums checked
+package ‘xlsxjars’ successfully unpacked and MD5 sums checked
+package ‘xlsx’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+        C:\Users\Harshali\AppData\Local\Temp\Rtmp4sC41y\downloaded_packages
+> libary(xlsx)
+Error: could not find function "libary"
+> library(xlsx)
+Loading required package: rJava
+Loading required package: xlsxjars
+> colIndex < 7:15
+Error: object 'colIndex' not found
+> colIndex <- 7:15
+> rowIndex <- 18:23
+> dat <- read.xlsx("data.xlsx", sheetIndex=1, header=TRUE, colIndex=colIndex, rowIndex = rowIndex)
+> sum(dat$Zip*dat$Ext,na.rm=T)
+[1] 36534720
+> 

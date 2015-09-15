@@ -1,0 +1,66 @@
+> fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06pid.csv"
+> download.file(fileUrl, destfile="pid.csv")
+trying URL 'https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06pid.csv'
+Content type 'text/csv' length 11462469 bytes (10.9 MB)
+downloaded 10.9 MB
+
+> install.packages("data.table")
+Installing package into ‘C:/Users/Harshali/Documents/R/win-library/3.2’
+(as ‘lib’ is unspecified)
+--- Please select a CRAN mirror for use in this session ---
+also installing the dependencies ‘plyr’, ‘Rcpp’, ‘chron’, ‘reshape2’
+
+trying URL 'https://cran.mtu.edu/bin/windows/contrib/3.2/plyr_1.8.3.zip'
+Content type 'application/zip' length 1114412 bytes (1.1 MB)
+downloaded 1.1 MB
+
+trying URL 'https://cran.mtu.edu/bin/windows/contrib/3.2/Rcpp_0.12.1.zip'
+Content type 'application/zip' length 3189570 bytes (3.0 MB)
+downloaded 3.0 MB
+
+trying URL 'https://cran.mtu.edu/bin/windows/contrib/3.2/chron_2.3-47.zip'
+Content type 'application/zip' length 109065 bytes (106 KB)
+downloaded 106 KB
+
+trying URL 'https://cran.mtu.edu/bin/windows/contrib/3.2/reshape2_1.4.1.zip'
+Content type 'application/zip' length 503616 bytes (491 KB)
+downloaded 491 KB
+
+trying URL 'https://cran.mtu.edu/bin/windows/contrib/3.2/data.table_1.9.4.zip'
+Content type 'application/zip' length 1300774 bytes (1.2 MB)
+downloaded 1.2 MB
+
+package ‘plyr’ successfully unpacked and MD5 sums checked
+package ‘Rcpp’ successfully unpacked and MD5 sums checked
+Warning: unable to move temporary installation ‘C:\Users\Harshali\Documents\R\win-library\3.2\file2b5460712978\Rcpp’ to ‘C:\Users\Harshali\Documents\R\win-library\3.2\Rcpp’
+package ‘chron’ successfully unpacked and MD5 sums checked
+package ‘reshape2’ successfully unpacked and MD5 sums checked
+package ‘data.table’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+        C:\Users\Harshali\AppData\Local\Temp\Rtmpe08HvY\downloaded_packages
+> library(data.table)
+data.table 1.9.4  For help type: ?data.table
+*** NB: by=.EACHI is now explicit. See README to restore previous behaviour.
+> DT <- fread("pid.csv")
+> file.info("pid.csv")$size
+[1] 11477401
+> system.time(DT[,mean(pwgtp15),by=SEX])
+   user  system elapsed 
+   0.02    0.00    0.02 
+> system.time(mean(DT[DT$SEX==1,]$pwgtp15))+system.time(mean(DT[DT$SEX==2,]$pwgtp15))
+   user  system elapsed 
+   0.02    0.00    0.03 
+> system.time(sapply(split(DT$pwgtp15,DT$SEX),mean))
+   user  system elapsed 
+      0       0       0 
+> system.time(mean(DT$pwgtp15,by=DT$SEX))
+   user  system elapsed 
+      0       0       0 
+> system.time(tapply(DT$pwgtp15,DT$SEX,mean))
+   user  system elapsed 
+      0       0       0 
+> system.time(rowMeans(DT)[DT$SEX==1])+system.time(rowMeans(DT)[DT$SEX==2])
+Error in rowMeans(DT) : 'x' must be numeric
+Timing stopped at: 0.92 0.03 0.95 
+> 
