@@ -15,7 +15,7 @@ setwd("\Users\Harshali\Documents\GitHub\DataScienceSpecializationCoursera\Gettin
 
 library(httr)
 oauth_endpoints("github")
-myapp <- oauth_app("github", "3ab313538c301fa31716", "233ec0ebcdfb48f0bb0027f5c2ffef4df7876024")
+myapp <- oauth_app("github", "ClientID", "ClientSecret")
 #Use http://localhost:1410 as the callback url
 github_token <- oauth2.0_token(oauth_endpoints("github"), myapp)
 req <- GET("https://api.github.com/rate_limit", config(token = github_token))
